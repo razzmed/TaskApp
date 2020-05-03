@@ -8,6 +8,7 @@
     android:padding="16dp"
     tools:context=".FormActivity">
 
+
     <EditText
         android:id="@+id/editTitle"
         android:layout_width="match_parent"

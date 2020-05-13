@@ -7,7 +7,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,11 +31,14 @@ public class OnBoardActivity extends AppCompatActivity {
         skip = findViewById(R.id.btn_skip);
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager, true);
+
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(OnBoardActivity.this, MainActivity.class));
+                SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+                preferences.edit().putBoolean("isShown", true).apply();
                 finish();
+                startActivity(new Intent(OnBoardActivity.this, MainActivity.class));
             }
         });
     }

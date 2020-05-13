@@ -1,6 +1,8 @@
 package com.example.taskapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (true) {
+        if (!isShown()) {
             startActivity(new Intent(this, OnBoardActivity.class));
             return;
         }
@@ -50,12 +52,15 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
-                .setDrawerLayout(drawer)
-                .build();
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow).setDrawerLayout(drawer).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+    }
+
+    private boolean isShown() {
+        SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        return preferences.getBoolean("isShown", false);
     }
 
     @Override
@@ -68,7 +73,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.action_exit) {
+        if (id == R.id.action_exit) {
+            SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+            preferences.edit().putBoolean("isShown", false).apply();
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -87,5 +94,5 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         fragment.getChildFragmentManager().getFragments().get(0).onActivityResult(requestCode, resultCode, data);
-        }
     }
+}

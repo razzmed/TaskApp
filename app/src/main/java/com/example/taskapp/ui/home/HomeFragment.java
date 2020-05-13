@@ -26,11 +26,11 @@ public class HomeFragment extends Fragment {
 
 
     private TaskAdapter adapter;
-private ArrayList<Task> list = new ArrayList<>();
+    private ArrayList<Task> list = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-      return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
 
     }
 
@@ -39,7 +39,6 @@ private ArrayList<Task> list = new ArrayList<>();
         super.onViewCreated(view, savedInstanceState);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        list.add(new Task("Meder", "Razzakov"));
         adapter = new TaskAdapter(list);
         recyclerView.setAdapter(adapter);
     }

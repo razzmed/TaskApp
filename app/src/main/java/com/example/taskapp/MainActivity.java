@@ -89,10 +89,10 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        fragment.getChildFragmentManager().getFragments().get(0).onActivityResult(requestCode, resultCode, data);
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+//        fragment.getChildFragmentManager().getFragments().get(0).onActivityResult(requestCode, resultCode, data);
+//    }
 }

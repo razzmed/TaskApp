@@ -8,7 +8,7 @@ import com.example.taskapp.room.AppDatabase;
 
 public class App extends Application {
 
-    private AppDatabase database;
+    private static AppDatabase database;
     public static App instance;
 
     @Override
@@ -18,7 +18,7 @@ public class App extends Application {
         database = Room.databaseBuilder(this, AppDatabase.class, "database").allowMainThreadQueries().build();
     }
 
-    public AppDatabase getDatabase() {
+    public static AppDatabase getDatabase() {
         return database;
     }
 

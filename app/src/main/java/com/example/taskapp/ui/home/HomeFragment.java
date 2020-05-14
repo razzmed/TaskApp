@@ -1,5 +1,7 @@
 package com.example.taskapp.ui.home;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,8 +18,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.taskapp.App;
+import com.example.taskapp.FormActivity;
 import com.example.taskapp.R;
 import com.example.taskapp.models.Task;
+import com.example.taskapp.ui.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +33,7 @@ public class HomeFragment extends Fragment {
 
     private TaskAdapter adapter;
     private ArrayList<Task> list = new ArrayList<>();
+    private AlertDialog.Builder alertDialog;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -45,6 +50,42 @@ public class HomeFragment extends Fragment {
         adapter = new TaskAdapter(list);
         recyclerView.setAdapter(adapter);
         loadData();
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int pos) {
+                Task task = list.get(pos);
+                Intent intent = new Intent(getActivity(), FormActivity.class);
+                intent.putExtra("task", task);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onItemLongClick(final int pos) {
+                alert_dialog(pos);
+
+            }
+        });
+    }
+
+    public void alert_dialog(final int pos) {
+        alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setTitle("Attention!");
+        alertDialog.setMessage("Delete?");
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                App.getInstance().getDatabase().taskDao().delete(list.get(pos));
+            }
+        });
+
+        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        alertDialog.show();
     }
 
     private void loadData() {

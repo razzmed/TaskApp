@@ -1,5 +1,6 @@
 package com.example.taskapp.ui.home;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +24,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         this.list = list;
     }
 
-    public void update(ArrayList<Task> arrayList) {
-        list = arrayList;
-        notifyDataSetChanged();
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,6 +34,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(list.get(position));
+        if (position % 2 == 1) {
+            holder.itemView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        } else {
+            holder.itemView.setBackgroundColor(Color.parseColor("#ECECEC"));
+        }
 
     }
 
@@ -52,11 +53,21 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView textTitle;
+        private TextView textTitle, textDesc;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textTitle = itemView.findViewById(R.id.textTitle);
+            textDesc = itemView.findViewById(R.id.textDesc);
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    onItemClickListener.onItemLongClick(getAdapterPosition());
+                    return true;
+                }
+            });
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

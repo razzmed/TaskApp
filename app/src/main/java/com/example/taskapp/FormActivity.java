@@ -16,8 +16,9 @@ import com.example.taskapp.models.Task;
 
 public class FormActivity extends AppCompatActivity {
 
-    private EditText editTitle;
-    private EditText editDesc;
+    EditText editTitle;
+    EditText editDesc;
+    Task task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,26 +31,36 @@ public class FormActivity extends AppCompatActivity {
 
         editTitle = findViewById(R.id.editTitle);
         editDesc = findViewById(R.id.editDesc);
+        edit();
+
+    }
+
+    public void edit() {
+        task = (Task) getIntent().getSerializableExtra("task");
+        if (task != null) {
+            editTitle.setText(task.getTitle());
+            editDesc.setText(task.getDesc());
+        }
+    }
+
+    public void onClick (View view) {
+        if (task != null) {
+            task.setTitle(editTitle.getText().toString());
+            task.setDesc(editDesc.getText().toString());
+            App.getInstance().getDatabase().taskDao().update(task);
+        } else {
+            task = new Task(editTitle.getText().toString(), editDesc.getText().toString());
+            App.getInstance().getDatabase().taskDao().update(task);
+        }
+        finish();
 
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void onClick(View view) {
-        String title = editTitle.getText().toString().trim();
-        String desc = editDesc.getText().toString().trim();
-        Task task = new Task(title, desc);
-        App.getInstance().getDatabase().taskDao().insert(task);
-//        Intent intent = new Intent();
-//        intent.putExtra("task", task);
-//        setResult(RESULT_OK, intent);
+        setResult(RESULT_CANCELED);
         finish();
-
+        return true;
     }
+
 }

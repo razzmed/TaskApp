@@ -9,11 +9,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.taskapp.login.PhoneActivity;
 import com.example.taskapp.models.Task;
 import com.example.taskapp.ui.onboard.OnBoardActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         if (!isShown()) {
             startActivity(new Intent(this, OnBoardActivity.class));
+            return;
+        }
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            startActivity(new Intent(this, PhoneActivity.class));
+            finish();
             return;
         }
         setContentView(R.layout.activity_main);
@@ -70,8 +77,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        fragment.getChildFragmentManager().getFragments().get(0).onOptionsItemSelected(item);
         int id = item.getItemId();
         if (id == R.id.action_exit) {
             SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);

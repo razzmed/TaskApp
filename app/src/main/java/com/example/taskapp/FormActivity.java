@@ -43,17 +43,37 @@ public class FormActivity extends AppCompatActivity {
         }
     }
 
-    public void onClick (View view) {
+//    public void onClick(View view) {
+//        if (task != null) {
+//            task.setTitle(editTitle.getText().toString());
+//            task.setDesc(editDesc.getText().toString());
+//            App.getInstance().getDatabase().taskDao().update(task);
+//        } else {
+//            task = new Task(editTitle.getText().toString(), editDesc.getText().toString());
+//            App.getInstance().getDatabase().taskDao().update(task);
+//        }
+//        finish();
+//
+//    }
+
+    public void onClick(View view) {
+        String title = editTitle.getText().toString().trim();
+        if (title.isEmpty()) {
+            editTitle.setError("Enter task");
+            return;
+        }
+        String desc = editDesc.getText().toString().trim();
         if (task != null) {
-            task.setTitle(editTitle.getText().toString());
-            task.setDesc(editDesc.getText().toString());
+            task.setTitle(title);
+            task.setDesc(desc);
             App.getInstance().getDatabase().taskDao().update(task);
         } else {
-            task = new Task(editTitle.getText().toString(), editDesc.getText().toString());
-            App.getInstance().getDatabase().taskDao().update(task);
+            task = new Task();
+            task.setTitle(title);
+            task.setDesc(desc);
+            App.getInstance().getDatabase().taskDao().insert(task);
         }
         finish();
-
     }
 
     @Override

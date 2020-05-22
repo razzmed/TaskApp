@@ -11,23 +11,26 @@
 
     <EditText
         android:id="@+id/editTitle"
+        style="@style/EditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Задача"/>
+        android:hint="Задача" />
 
     <EditText
         android:id="@+id/editDesc"
+        style="@style/EditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Описание задачи"/>
+        android:hint="Описание задачи" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_rounded_gradient"
+        android:onClick="onClick"
         android:text="Сохранить"
         android:textAllCaps="false"
-        android:onClick="onClick"/>
-
+        android:textColor="@android:color/white" />
 
 
 </LinearLayout>

@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.taskapp.MainActivity;
 import com.example.taskapp.R;
 
@@ -41,34 +42,40 @@ public class BoardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView textTitle = view.findViewById(R.id.textTitle);
-        TextView textDesc = view.findViewById(R.id.textDesc);
+        LottieAnimationView lottieAnimationView = view.findViewById(R.id.lottieAnimationView);
+
+//        TextView textTitle = view.findViewById(R.id.textTitle);
+//        TextView textDesc = view.findViewById(R.id.textDesc);
         Button button = view.findViewById(R.id.buttonGetStart);
-        ImageView image = view.findViewById(R.id.imageView);
-        LinearLayout backgColor = view.findViewById(R.id.bg_color);
+//        ImageView image = view.findViewById(R.id.imageView);
+//        LinearLayout backgColor = view.findViewById(R.id.bg_color);
 
         int pos = getArguments().getInt("pos");
         switch (pos) {
             case 0:
-                textTitle.setText("Дом");
-                textDesc.setText("House");
-                image.setImageResource(R.drawable.home);
+//                textTitle.setText("Дом");
+//                textDesc.setText("House");
+//                image.setImageResource(R.drawable.home);
+                lottieAnimationView.setAnimation(R.raw.office);
                 button.setVisibility(View.GONE);
-                backgColor.setBackgroundColor(getResources().getColor(R.color.AntiqueWhite));
+//                backgColor.setBackgroundColor(getResources().getColor(R.color.AntiqueWhite));
                 break;
             case 1:
-                textTitle.setText("Земля");
-                textDesc.setText("Earth");
-                image.setImageResource(R.drawable.earth);
+//                textTitle.setText("Земля");
+//                textDesc.setText("Earth");
+//                image.setImageResource(R.drawable.earth);
+//                lottieAnimationView.setAnimation(R.raw.success-animation);
+                lottieAnimationView.setAnimation(R.raw.manworking);
                 button.setVisibility(View.GONE);
-                backgColor.setBackgroundColor(getResources().getColor(R.color.Coral));
+//                  backgColor.setBackgroundColor(getResources().getColor(R.color.Coral));
                 break;
             case 2:
-                textTitle.setText("Часы");
-                textDesc.setText("Clock");
-                image.setImageResource(R.drawable.clock);
+//                textTitle.setText("Часы");
+//                textDesc.setText("Clock");
+//                image.setImageResource(R.drawable.clock);
+                lottieAnimationView.setAnimation(R.raw.successanimation);
                 button.setVisibility(View.VISIBLE);
-                backgColor.setBackgroundColor(getResources().getColor(R.color.Yellow));
+//                backgColor.setBackgroundColor(getResources().getColor(R.color.Yellow));
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

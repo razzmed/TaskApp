@@ -34,7 +34,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(list.get(position));
-        if (position % 2 == 1) {
+        if (position % 2 == 0) {
             holder.itemView.setBackgroundColor(Color.parseColor("#FFFFFF"));
         } else {
             holder.itemView.setBackgroundColor(Color.parseColor("#ECECEC"));
@@ -59,7 +59,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textTitle = itemView.findViewById(R.id.textTitle);
-            textDesc = itemView.findViewById(R.id.textDesc);
+
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -78,6 +78,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         public void bind(Task task) {
             textTitle.setText(task.getTitle());
+
         }
     }
 }

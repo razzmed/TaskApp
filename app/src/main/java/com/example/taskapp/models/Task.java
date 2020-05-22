@@ -12,7 +12,7 @@ public class Task implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String title;
-    private  String desc;
+    private String desc;
 
     public Task() {
     }
